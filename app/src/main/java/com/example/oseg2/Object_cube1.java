@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-class Cube {
+class Object_cube1 {
 
     private static FloatBuffer mVertexBuffer;
     private FloatBuffer mColorBuffer;
@@ -42,7 +42,7 @@ class Cube {
             3, 0, 1, 3, 1, 2
     };
 
-    public Cube() {
+    public Object_cube1() {
         ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
         mVertexBuffer = byteBuf.asFloatBuffer();

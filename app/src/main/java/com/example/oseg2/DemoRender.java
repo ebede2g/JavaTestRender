@@ -9,11 +9,13 @@ import javax.microedition.khronos.opengles.GL10;
 class DemoRenderer implements GLSurfaceView.Renderer {
 
 
-    int duConst =MainActivity.duConst;
+    static int duConst =1;
 
 
-    private Cube cube = new Cube();
-    private Cube2 cube2 = new Cube2();
+
+
+    private Object_cube1 cube = new Object_cube1();
+    private Object_cube2 cube2 = new Object_cube2();
     private static float tick;
     private static float tick0;
 

@@ -16,9 +16,11 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 public class MainActivity extends Activity {
 
-    static int duConst = 1;
+
 
 
     @Override
@@ -36,15 +38,15 @@ public class MainActivity extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if(e.getAction()==MotionEvent.ACTION_DOWN) {
-            duConst *= -1;
-            //Log.e("main",duConst+" Мейн");
+            DemoRenderer.duConst *= -1;
+            Log.e("main",DemoRenderer.duConst+" Main");
 
-            GLSurfaceView view = new GLSurfaceView(this);
-            view.setRenderer(new DemoRenderer());
-            setContentView(view);
+
         }
         return true;
     }
+
+
 
 
 
