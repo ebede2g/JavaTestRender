@@ -22,41 +22,73 @@ public class Object_tunel {
         mIndexBuffer = ByteBuffer.allocateDirect(indices.length);
         mIndexBuffer.put(indices);
         mIndexBuffer.position(0);
+
+        cirq_vertices();
+
     }
 
     private static FloatBuffer mVertexBuffer;
     private FloatBuffer mColorBuffer;
     private ByteBuffer mIndexBuffer;
 
-    private float vertices[] = {
-            -1.0f, -1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f,  1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f,
-            -1.0f, -1.0f,  1.0f,
-            1.0f, -1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,
-            -1.0f,  1.0f,  1.0f
-    };
-    private float colors[] = {
-            0.0f,  1.0f,  0.0f,  1.0f,
-            0.0f,  1.0f,  0.0f,  1.0f,
-            1.0f,  0.5f,  0.0f,  1.0f,
-            1.0f,  0.5f,  0.0f,  1.0f,
-            1.0f,  0.0f,  0.0f,  1.0f,
-            1.0f,  0.0f,  0.0f,  1.0f,
-            0.0f,  0.0f,  1.0f,  1.0f,
-            1.0f,  0.0f,  1.0f,  1.0f
-    };
 
-    private byte indices[] = {
-            0, 4, 5, 0, 5, 1,
-            1, 5, 6, 1, 6, 2,
-            2, 6, 7, 2, 7, 3,
-            3, 7, 4, 3, 4, 0,
-            4, 7, 6, 4, 6, 5,
-            3, 0, 1, 3, 1, 2
-    };
+
+    public float[] cirq_vertices(){
+
+        float[] vert = new float[16 * 2 * 3];
+
+        for(int i = 0;i<16;i+=1){
+            double ang = (i*Math.PI/8);
+            vert[6*i]= (float) Math.cos(ang);
+            vert[6*i+1]= (float) Math.sin(ang);
+            vert[6*i+2]=-10;
+
+            vert[6*i+3]= (float) Math.cos(ang);
+            vert[6*i+4]= (float) Math.sin(ang);
+            vert[6*i+5]=-65;
+        }
+
+
+        return vert;
+    }
+    public float[] cirq_colors(){
+
+        float[] color = new float[16 * 2 * 4];
+
+        for(int i = 0;i<16;i+=1){
+            double ang = (i*Math.PI/8);
+            color[8*i+0]= (float) 0.3;
+            color[8*i+1]= (float) Math.sin(4+ang);
+            color[8*i+2]= (float) 0.3;
+            color[8*i+3]= (float) Math.cos(2*ang);
+
+            color[8*i+4]= (float) 0.1;
+            color[8*i+5]= (float) Math.sin(3*ang);
+            color[8*i+6]= (float) ((float) Math.sin(5*ang)*Math.cos(ang));
+            color[8*i+7]= (float) Math.cos(0.2*ang);
+        }
+
+        return color;
+    }
+    public byte[] cirq_vindices(){
+
+        byte[] ind = new byte[16 * 2 * 3];
+
+        for(int i = 0;i<30;i+=1){
+            ind[3*i+0]= (byte) (i);
+            ind[3*i+1]= (byte) (i+1);
+            ind[3*i+2]= (byte) (i+2);
+        }
+
+        ind[90] = 30;   ind[91] = 31;   ind[92] = 0;
+                        ind[93] = 31;   ind[94] = 0;   ind[95] = 1;
+
+        return ind;
+    }
+
+    private float vertices[] = cirq_vertices();
+    private float colors[] = cirq_colors();
+    private byte[] indices = cirq_vindices();
 
 
 
@@ -69,7 +101,7 @@ public class Object_tunel {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-        gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        gl.glDrawElements(GL10.GL_TRIANGLES, 96, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);

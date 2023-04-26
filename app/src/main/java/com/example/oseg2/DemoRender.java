@@ -9,15 +9,23 @@ import javax.microedition.khronos.opengles.GL10;
 class DemoRenderer implements GLSurfaceView.Renderer {
 
 
-    static int duConst =1;
+    static int duConst =-1;
+    static float x_rot=0;
+    static float y_rot=0;
+    static float z_rot=0;
 
 
 
 
-    private Object_cube1 cube = new Object_cube1();
+
+    private Object_cube1 cube1 = new Object_cube1();
     private Object_cube2 cube2 = new Object_cube2();
+    private Object_tunel tunel = new Object_tunel();
+
+
+    private static float tick_rot;
+    private static float tick_duConst;
     private static float tick;
-    private static float tick0;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -53,17 +61,21 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.0f, tick *0.14f);
-        gl.glRotatef(tick0, 1.0f, 1.0f, 1.0f);
-        cube.draw(gl);
+        gl.glTranslatef(0.0f, 0.0f, tick_duConst *0.14f);
+        gl.glTranslatef(0.0f, 0.81f, 0.0f);
+        gl.glRotatef(tick_rot, 0.0f, 0.0f, 1.0f);
+        tunel.draw(gl);
 
         gl.glLoadIdentity();
         gl.glTranslatef(1.0f, 0.0f, -13f);
-        gl.glRotatef(7* tick0, 1.0f, 0.4f, 1.0f);
+        gl.glRotatef(7* tick, 1.0f, 0.4f, 1.0f);
         cube2.draw(gl);
 
-        tick -= duConst*0.15f;
-        tick0 -= 0.15f;
+        tick_duConst -= duConst*0.15f;
+        tick -= 0.15f;
+        tick_rot+=x_rot;
+
+
 
     }
 
