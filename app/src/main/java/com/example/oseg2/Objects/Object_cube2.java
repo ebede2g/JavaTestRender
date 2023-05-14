@@ -1,4 +1,4 @@
-package com.example.oseg2;
+package com.example.oseg2.Objects;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -6,9 +6,9 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-class Object_cube1 {
+class Object_cube2 {
 
-    private static FloatBuffer mVertexBuffer;
+    private FloatBuffer mVertexBuffer;
     private FloatBuffer mColorBuffer;
     private ByteBuffer mIndexBuffer;
 
@@ -23,14 +23,14 @@ class Object_cube1 {
             -1.0f,  1.0f,  1.0f
     };
     private float colors[] = {
-            0.0f,  1.0f,  0.0f,  1.0f,
-            0.0f,  1.0f,  0.0f,  1.0f,
-            1.0f,  0.5f,  0.0f,  1.0f,
-            1.0f,  0.5f,  0.0f,  1.0f,
-            1.0f,  0.0f,  0.0f,  1.0f,
-            1.0f,  0.0f,  0.0f,  1.0f,
-            0.0f,  0.0f,  1.0f,  1.0f,
-            1.0f,  0.0f,  1.0f,  1.0f
+            1.0f,  1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,  1.0f,
+            0.1f,  0.1f,  0.1f,  1.0f,
+            0.1f,  0.1f,  0.1f,  1.0f,
+            0.1f,  0.1f,  0.1f,  1.0f,
+            0.1f,  0.1f,  0.1f,  1.0f
     };
 
     private byte indices[] = {
@@ -42,7 +42,7 @@ class Object_cube1 {
             3, 0, 1, 3, 1, 2
     };
 
-    public Object_cube1() {
+    public Object_cube2() {
         ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
         mVertexBuffer = byteBuf.asFloatBuffer();

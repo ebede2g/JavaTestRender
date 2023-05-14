@@ -1,4 +1,4 @@
-package com.example.oseg2;
+package com.example.oseg2.Objects;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
