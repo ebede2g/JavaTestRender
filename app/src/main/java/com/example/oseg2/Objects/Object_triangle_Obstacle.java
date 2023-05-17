@@ -1,5 +1,7 @@
 package com.example.oseg2.Objects;
 
+import android.util.Log;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -7,6 +9,8 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Object_triangle_Obstacle {
+
+    public static int position = -4;
     public Object_triangle_Obstacle() {
         ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
@@ -23,47 +27,49 @@ public class Object_triangle_Obstacle {
         mIndexBuffer = ByteBuffer.allocateDirect(indices.length);
         mIndexBuffer.put(indices);
         mIndexBuffer.position(0);
+
+
     }
 
-    private static FloatBuffer mVertexBuffer;
-    private FloatBuffer mColorBuffer;
-    private ByteBuffer mIndexBuffer;
+    static FloatBuffer mVertexBuffer;
+    FloatBuffer mColorBuffer;
+    ByteBuffer mIndexBuffer;
 
-    int randNumb = 1;
+
 
     private float vertices[] = {
-            (float) Math.cos(randNumb * Math.PI / 8),          (float) Math.sin(randNumb * Math.PI / 8),          -20.0f,
-            (float) Math.cos((randNumb+1) * Math.PI / 8),        (float) Math.sin((randNumb+1) * Math.PI / 8),        -20.0f,
-            (float) (0.5*Math.cos((randNumb+0.5) * Math.PI / 8)), (float) (0.5*Math.sin((randNumb+0.5) * Math.PI / 8)), -20.0f,
+            (float) Math.cos(position * Math.PI / 8), (float) Math.sin(position * Math.PI / 8), 0f,
+            (float) Math.cos((position + 1) * Math.PI / 8), (float) Math.sin((position + 1) * Math.PI / 8), 0f,
+            (float) (0.5 * Math.cos((position + 0.5) * Math.PI / 8)), (float) (0.5 * Math.sin((position + 0.5) * Math.PI / 8)), 0f,
 
-            (float) Math.cos(randNumb * Math.PI / 8),          (float) Math.sin(randNumb * Math.PI / 8),          -21.0f,
-            (float) Math.cos((randNumb+1) * Math.PI / 8),        (float) Math.sin((randNumb+1) * Math.PI / 8),        -21.0f,
-            (float) (0.5*Math.cos((randNumb+0.5) * Math.PI / 8)),(float) (0.5*Math.sin((randNumb+0.5) * Math.PI / 8)),-21.0f,
+            (float) Math.cos(position * Math.PI / 8), (float) Math.sin(position * Math.PI / 8), -1f,
+            (float) Math.cos((position + 1) * Math.PI / 8), (float) Math.sin((position + 1) * Math.PI / 8), -1f,
+            (float) (0.5 * Math.cos((position + 0.5) * Math.PI / 8)), (float) (0.5 * Math.sin((position + 0.5) * Math.PI / 8)), -1f,
     };
     private float colors[] = {
-            1.0f,  1.0f,  1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,  1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
 
     };
     private byte[] indices = {
-            0,1,2,
-            1,2,4,
-            4,2,5,
-            2,0,3,
+            0, 1, 2,
+            1, 2, 4,
+            4, 2, 5,
+            2, 0, 3,
 
-            3,2,5,
-            3,4,5,
-            4,3,0,
-            4,1,0
+            3, 2, 5,
+            3, 4, 5,
+            4, 3, 0,
+            4, 1, 0
     };
 
 
-
     public void draw(GL10 gl) {
+
         gl.glFrontFace(GL10.GL_CW);
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);

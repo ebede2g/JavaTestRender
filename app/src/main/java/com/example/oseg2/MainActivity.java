@@ -15,8 +15,6 @@ import android.view.WindowManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.oseg2.Render.DemoRenderer;
-
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
 

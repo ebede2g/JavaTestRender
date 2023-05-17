@@ -41,7 +41,7 @@ public class Object_tunel {
             double ang = (i*Math.PI/8);
             vert[6*i]= (float) Math.cos(ang);
             vert[6*i+1]= (float) Math.sin(ang);
-            vert[6*i+2]=-10;
+            vert[6*i+2]=0;
 
             vert[6*i+3]= (float) Math.cos(ang);
             vert[6*i+4]= (float) Math.sin(ang);
