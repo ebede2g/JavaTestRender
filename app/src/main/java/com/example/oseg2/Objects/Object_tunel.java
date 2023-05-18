@@ -45,7 +45,7 @@ public class Object_tunel {
 
             vert[6*i+3]= (float) Math.cos(ang);
             vert[6*i+4]= (float) Math.sin(ang);
-            vert[6*i+5]=-65;
+            vert[6*i+5]=-150;
         }
 
 

@@ -22,16 +22,19 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
 
     private static float scaleFctor = 1;
-    private static float speed = 0.151f;
+    static float speed = 0;
 
 
     private static int obs_counter = 0;
     private static float tick_rot;
-    private static float tick;
+     static float tick;
     private static float deadline;
 
-    private static final int[] que_tick = {-10,-40,-70,-100};
-    QueRandData[] queue = {new QueRandData(), new QueRandData(), new QueRandData()};
+    static int[] que_tick = {-10,-40,-70,-100};
+    public static void updateQueTick() {
+        que_tick = new int[] {-10, -40, -70, -100};
+    }
+    QueRandData[] queue = {new QueRandData(), new QueRandData(), new QueRandData(),new QueRandData()};
 
     int teta = 70;                              //відстань між перешкодами
 
@@ -45,7 +48,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
             deadline = (float) Math.sqrt(Math.pow((obs_dist + 0.5 + tick), 2) +
                     Math.pow(Math.cos((2 * Math.PI / 360) * ((22.5 * obs_pos + tick_rot + 371.25) % 360)) - 1, 2));
-            if (deadline < 0.06) {
+            if (deadline < 0.055) {
                 speed = 0;
             }
         }
@@ -90,6 +93,8 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         setQueTick(gl,0);
         setQueTick(gl,1);
         setQueTick(gl,2);
+        setQueTick(gl,3);
+
     }
 
     @Override
