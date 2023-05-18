@@ -2,6 +2,7 @@ package com.example.oseg2;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
+import android.util.Log;
 
 import com.example.oseg2.Objects.Object_triangle_Obstacle;
 import com.example.oseg2.Objects.Object_tunel;
@@ -21,7 +22,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
 
     private static float scaleFctor = 1;
-    private static float speed = 0.121f;
+    private static float speed = 0.151f;
 
 
     private static int obs_counter = 0;
@@ -29,7 +30,10 @@ class DemoRenderer implements GLSurfaceView.Renderer {
     private static float tick;
     private static float deadline;
 
-    private static int next_tick_of_obs = -10;
+    private static final int[] que_tick = {-10,-40,-70,-100};
+    QueRandData[] queue = {new QueRandData(), new QueRandData(), new QueRandData()};
+
+    int teta = 70;                              //відстань між перешкодами
 
 
     private void createObs(GL10 gl, Integer obs_dist, Integer obs_pos) {
@@ -47,54 +51,45 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         }
     }
 
-
-        int que1;int que1_pos;int que1_amnt_t1;int que1_amnt_t2;int que1_amnt_t3;
-
-        int que2;int que2_pos;int que2_amnt_t1;int que2_amnt_t2;int que2_amnt_t3;
-
-
-
-    private void randomGenObs(GL10 gl) {
-        if (tick < next_tick_of_obs - 1) {
-            next_tick_of_obs = -randNum(-2, 2) - (int) ((int) 24 + 16 * Math.sin(Math.sin(Math.pow(-tick, 1.1) - 2 * -tick))) + next_tick_of_obs; //майбутні координати перешкоди
-
-            que1 = randNum(1, 3);
-            que1_pos = randNum(0, 15);
-
-            que1_amnt_t1 = randNum(que1_pos + 3, que1_pos + 12);
-
-            que1_amnt_t2 = randNum(que1_pos + 2, que1_pos + 5);
-
-            que1_amnt_t3 = randNum(que1_pos + 1, 8);
-
-
-
-        }
-
-
-        switch (que1) {
+    private void draw_typeObs(GL10 gl,QueRandData queue){
+        switch (queue.que) {
             case (1): {
-                for (int gen = que1_pos; gen < que1_amnt_t1; gen++) {
-                    createObs(gl, -next_tick_of_obs, gen);
+                for (int gen = queue.que_pos; gen < queue.que_amnt_t1; gen++) {
+                    createObs(gl, -queue.que_tick, gen);
                 }
             }
             case (2): {
-                for (int gen = que1_pos; gen < que1_amnt_t2; gen++) {
-                    createObs(gl, -next_tick_of_obs, gen);
+                for (int gen = queue.que_pos; gen < queue.que_amnt_t2; gen++) {
+                    createObs(gl, -queue.que_tick, gen);
                 }
-                for (int gen = que1_pos + que1_amnt_t2 + 2; gen < que1_amnt_t2 * 2 + 1; gen++) {
-                    createObs(gl, -next_tick_of_obs, gen);
+                for (int gen = queue.que_pos + queue.que_amnt_t2 + 2; gen < queue.que_amnt_t2 * 2 + 1; gen++) {
+                    createObs(gl, -queue.que_tick, gen);
                 }
             }
             case (3): {
-                for (int gen = que1_pos; gen < que1_amnt_t3 * 2; gen += 2) {
-                    createObs(gl, -next_tick_of_obs, gen);
+                for (int gen = queue.que_pos; gen < queue.que_amnt_t3 * 2; gen += 2) {
+                    createObs(gl, -queue.que_tick, gen);
                 }
             }
             default: ;
         }
+    }
 
 
+    private void setQueTick(GL10 gl,int beta){
+        if (tick < que_tick[beta] - 1) {
+            que_tick[beta] =(int) (-randNum(-5, 5) -( teta-que_tick[beta]+tick + 16 * Math.sin((tick* Math.sin(tick/1500))/150)+6*Math.sin(tick)*Math.sin(tick))) + que_tick[beta];
+            //майбутні координати перешкоди
+            Log.d("beb","que1tick = "+que_tick[beta]);
+            queue[beta].setRand(que_tick[beta]);
+        }
+        draw_typeObs(gl, queue[beta]);
+    }
+
+    private void randomGenObs(GL10 gl) {
+        setQueTick(gl,0);
+        setQueTick(gl,1);
+        setQueTick(gl,2);
     }
 
     @Override
@@ -133,7 +128,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
 
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.81f, -tick);
+        gl.glTranslatef(0.0f, 0.81f, 0f);
         gl.glRotatef(tick_rot, 0.0f, 0.0f, 1.0f);
         tunel.draw(gl);
 
