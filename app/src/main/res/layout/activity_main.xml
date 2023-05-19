@@ -11,15 +11,17 @@
         android:id="@+id/game_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </FrameLayout>
 
-    <TextView
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textSize="30dp"
-        android:layout_marginBottom="300dp"
+    <Button
+        android:background="#7d007d"
+        android:id="@+id/start_button"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:text="Старт"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="200dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,11 +31,35 @@
 
     <Button
         android:background="#7d007d"
-        android:id="@+id/start_button"
-        android:layout_width="160dp"
+        android:id="@+id/exit_button"
+        android:layout_width="85dp"
         android:layout_height="60dp"
-        android:text="Старт"
+        android:text="вихід"
         android:layout_marginTop="300dp"
+        android:layout_marginStart="200dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/clock"
+        />
+
+    <TextView
+        android:layout_width="256dp"
+        android:layout_height="58dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="30dp"
+        android:layout_marginBottom="300dp"
+        android:textColor="#7d007d"
+        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

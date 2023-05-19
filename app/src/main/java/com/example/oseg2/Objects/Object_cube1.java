@@ -13,14 +13,15 @@ public class Object_cube1 {
     private ByteBuffer mIndexBuffer;
 
     private float vertices[] = {
-            (float) (Math.cos(position * Math.PI / 8)),         (float) Math.sin(position * Math.PI / 8),       0f,
-            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) Math.sin((position + 1) * Math.PI / 8), 0f,
-            (float) (Math.cos(position * Math.PI / 8)),         (float) Math.sin(position * Math.PI / 8),       -1f,
-            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) Math.sin((position + 1) * Math.PI / 8), -1f,
-            (float) (Math.cos(position * Math.PI / 8)),         (float) (0.39+Math.sin(position * Math.PI / 8)),       0f,
-            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), 0f,
-            (float) (Math.cos(position * Math.PI / 8)),         (float) (0.39+Math.sin(position * Math.PI / 8)),       -1f,
-            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), -1f,
+            (float) (0.1+Math.cos(position * Math.PI / 8)),         0.1f+(float) Math.sin(position * Math.PI / 8),       0f,
+            (float) (-0.1+Math.cos((position + 1) * Math.PI / 8)),   0.1f+(float) Math.sin((position + 1) * Math.PI / 8), 0f,
+            (float) (0.1+Math.cos(position * Math.PI / 8)),         0.1f+(float) Math.sin(position * Math.PI / 8),       -1f,
+            (float) (-0.1+Math.cos((position + 1) * Math.PI / 8)),   (0.1f+(float) Math.sin((position + 1) * Math.PI / 8)), -1f,
+
+            (float) (0.1+-0.1+Math.cos(position * Math.PI / 8)),         -0.1f+(float) (0.39+Math.sin(position * Math.PI / 8)),       0f,
+            (float) (-0.1+-0.1+Math.cos((position + 1) * Math.PI / 8)),  -0.1f+ (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), 0f,
+            (float) (0.1+-0.1+Math.cos(position * Math.PI / 8)),         -0.1f+(float) (0.39+Math.sin(position * Math.PI / 8)),       -1f,
+            (float) (-0.1+-0.1+Math.cos((position + 1) * Math.PI / 8)),  -0.1f+ (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), -1f,
     };
     private float colors[] = {
             0.0f,  1.0f,  0.0f,  1.0f,

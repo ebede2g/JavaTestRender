@@ -5,8 +5,9 @@
       <map>
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_game2.xml" value="0.2640625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/game_activity.xml" value="0.2630208333333333" />
+        <entry key="app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml" value="0.2545" />
       </map>
     </option>
   </component>

@@ -25,11 +25,20 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        Button renderButton = findViewById(R.id.start_button);
-        renderButton.setOnClickListener(new View.OnClickListener() {
+        Button startGame = findViewById(R.id.start_button);
+        Button exitGame = findViewById(R.id.exit_button);
+
+        startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startGame();
+            }
+        });
+
+        exitGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             isGameStarted = true;
         }
         DemoRenderer.speed = 0.15f;
+        DemoRenderer.extraLife=1;
     }
 
 }

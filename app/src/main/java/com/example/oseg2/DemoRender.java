@@ -41,7 +41,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
     int teta = 70;                              //відстань між перешкодами
 
 
-    private static float buff_tick = -10;
+    static float buff_tick = -10;
 
 
     private void createObs(GL10 gl, Integer obs_dist, Integer obs_pos) {
@@ -53,7 +53,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
             deadline = (float) Math.sqrt(Math.pow((obs_dist + 0.5 + tick), 2) +
                     Math.pow(Math.cos((2 * Math.PI / 360) * ((22.5 * obs_pos + tick_rot + 371.25) % 360)) - 1, 2));
-            if (deadline < 0.055) {
+            if (deadline < 0.055&&extraLife!=0) {
                 extraLife--;
             }
             if(extraLife<1){speed = 0;}
@@ -64,8 +64,6 @@ class DemoRenderer implements GLSurfaceView.Renderer {
             gl.glLoadIdentity();
             gl.glTranslatef(0.0f, 0.81f, -(buff_dist + tick));
             gl.glRotatef((float) (22.5 * buff_pos + tick_rot), 0.0f, 0.0f, 1.0f);
-            gl.glScalef(0.5f,0.5f,0.5f);
-            gl.glColor4f(1,(float)Math.sin(tick_rot+tick),(float)Math.cos(tick),(float)Math.sin(tick_rot));
             cube.draw(gl);
 
             deadline = (float) Math.sqrt(Math.pow((buff_dist + 0.5 + tick), 2) +
@@ -116,7 +114,7 @@ class DemoRenderer implements GLSurfaceView.Renderer {
     }
     private void randomGenBuff(GL10 gl){
         if (tick < buff_tick - 1) {
-            buff_tick =(int) (-randNum(40, 100) + buff_tick);
+            buff_tick =(int) (-randNum(70, 100) + buff_tick);
         }
         createBuff(gl, (int) -buff_tick, (int) -buff_tick);
     }
@@ -158,14 +156,18 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.81f, 0f);
         gl.glRotatef(tick_rot, 0.0f, 0.0f, 1.0f);
+
         tunel.draw(gl);
 
-        //randomGenObs(gl);
+        randomGenObs(gl);
         randomGenBuff(gl);
 
         tick += duConst * speed;
         tick_rot += x_rot*(GameActivity.paused ? 0 : 1);
         speed*=1f;
+
+
+
     }
 
 

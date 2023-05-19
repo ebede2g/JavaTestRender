@@ -94,10 +94,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 paused = false;
                 DemoRenderer.tick = 0;
                 DemoRenderer.speed = 0.15f;
+                DemoRenderer.extraLife=1;
                 button_resume.setVisibility(View.GONE);
                 button_again.setVisibility(View.GONE);
                 button_to_menu.setVisibility(View.GONE);
                 DemoRenderer.updateQueTick();   //еперезапис початквих позицій перешкод
+                DemoRenderer.buff_tick = -10;
 
                 mediaPlayer.start();
                 extralifeTextView.setTextColor(Color.parseColor("#FFFFFF"));
