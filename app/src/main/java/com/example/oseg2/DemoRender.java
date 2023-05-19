@@ -4,6 +4,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.util.Log;
 
+import com.example.oseg2.Objects.Object_cube1;
 import com.example.oseg2.Objects.Object_triangle_Obstacle;
 import com.example.oseg2.Objects.Object_tunel;
 
@@ -19,10 +20,12 @@ class DemoRenderer implements GLSurfaceView.Renderer {
 
     private Object_tunel tunel = new Object_tunel();
     private Object_triangle_Obstacle triangle_obstacle = new Object_triangle_Obstacle();
+    private Object_cube1 cube=new Object_cube1();
 
 
     private static float scaleFctor = 1;
     static float speed = 0;
+    static int extraLife = 1;
 
 
     private static int obs_counter = 0;
@@ -30,13 +33,15 @@ class DemoRenderer implements GLSurfaceView.Renderer {
      static float tick;
     private static float deadline;
 
-    static int[] que_tick = {-10,-40,-70,-100};
+    static float[] que_tick = {-10,-40,-70,-100};
     public static void updateQueTick() {
-        que_tick = new int[] {-10, -40, -70, -100};
+        que_tick = new float[] {-10, -40, -70, -100};
     }
     QueRandData[] queue = {new QueRandData(), new QueRandData(), new QueRandData(),new QueRandData()};
-
     int teta = 70;                              //відстань між перешкодами
+
+
+    private static float buff_tick = -10;
 
 
     private void createObs(GL10 gl, Integer obs_dist, Integer obs_pos) {
@@ -49,11 +54,27 @@ class DemoRenderer implements GLSurfaceView.Renderer {
             deadline = (float) Math.sqrt(Math.pow((obs_dist + 0.5 + tick), 2) +
                     Math.pow(Math.cos((2 * Math.PI / 360) * ((22.5 * obs_pos + tick_rot + 371.25) % 360)) - 1, 2));
             if (deadline < 0.055) {
-                speed = 0;
+                extraLife--;
+            }
+            if(extraLife<1){speed = 0;}
+        }
+    }
+    private void createBuff(GL10 gl, Integer buff_dist, Integer buff_pos) {
+        if (Math.signum(buff_dist + 1 + tick) == 1) {
+            gl.glLoadIdentity();
+            gl.glTranslatef(0.0f, 0.81f, -(buff_dist + tick));
+            gl.glRotatef((float) (22.5 * buff_pos + tick_rot), 0.0f, 0.0f, 1.0f);
+            gl.glScalef(0.5f,0.5f,0.5f);
+            gl.glColor4f(1,(float)Math.sin(tick_rot+tick),(float)Math.cos(tick),(float)Math.sin(tick_rot));
+            cube.draw(gl);
+
+            deadline = (float) Math.sqrt(Math.pow((buff_dist + 0.5 + tick), 2) +
+                    Math.pow(Math.cos((2 * Math.PI / 360) * ((22.5 * buff_pos + tick_rot + 371.25) % 360)) - 1, 2));
+            if (deadline < 0.055) {
+                extraLife++;
             }
         }
     }
-
     private void draw_typeObs(GL10 gl,QueRandData queue){
         switch (queue.que) {
             case (1): {
@@ -77,18 +98,15 @@ class DemoRenderer implements GLSurfaceView.Renderer {
             default: ;
         }
     }
-
-
     private void setQueTick(GL10 gl,int beta){
         if (tick < que_tick[beta] - 1) {
             que_tick[beta] =(int) (-randNum(-5, 5) -( teta-que_tick[beta]+tick + 16 * Math.sin((tick* Math.sin(tick/1500))/150)+6*Math.sin(tick)*Math.sin(tick))) + que_tick[beta];
             //майбутні координати перешкоди
             Log.d("beb","que1tick = "+que_tick[beta]);
-            queue[beta].setRand(que_tick[beta]);
+            queue[beta].setRand((int) que_tick[beta]);
         }
         draw_typeObs(gl, queue[beta]);
     }
-
     private void randomGenObs(GL10 gl) {
         setQueTick(gl,0);
         setQueTick(gl,1);
@@ -96,6 +114,13 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         setQueTick(gl,3);
 
     }
+    private void randomGenBuff(GL10 gl){
+        if (tick < buff_tick - 1) {
+            buff_tick =(int) (-randNum(40, 100) + buff_tick);
+        }
+        createBuff(gl, (int) -buff_tick, (int) -buff_tick);
+    }
+
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -110,7 +135,6 @@ class DemoRenderer implements GLSurfaceView.Renderer {
         gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 
     }
-
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         // Sets the current view port to the new size.
@@ -131,17 +155,17 @@ class DemoRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
-
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.81f, 0f);
         gl.glRotatef(tick_rot, 0.0f, 0.0f, 1.0f);
         tunel.draw(gl);
 
+        //randomGenObs(gl);
+        randomGenBuff(gl);
+
         tick += duConst * speed;
-        tick_rot += x_rot;
-
-        randomGenObs(gl);
-
+        tick_rot += x_rot*(GameActivity.paused ? 0 : 1);
+        speed*=1f;
     }
 
 

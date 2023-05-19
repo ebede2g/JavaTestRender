@@ -28,6 +28,7 @@
         />
 
     <Button
+        android:background="#7d007d"
         android:id="@+id/start_button"
         android:layout_width="160dp"
         android:layout_height="60dp"

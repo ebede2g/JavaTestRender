@@ -7,20 +7,20 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Object_cube1 {
-
+    public static int position = -4;
     private static FloatBuffer mVertexBuffer;
     private FloatBuffer mColorBuffer;
     private ByteBuffer mIndexBuffer;
 
     private float vertices[] = {
-            -1.0f, -1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f,  1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f,
-            -1.0f, -1.0f,  1.0f,
-            1.0f, -1.0f,  1.0f,
-            1.0f,  1.0f,  1.0f,
-            -1.0f,  1.0f,  1.0f
+            (float) (Math.cos(position * Math.PI / 8)),         (float) Math.sin(position * Math.PI / 8),       0f,
+            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) Math.sin((position + 1) * Math.PI / 8), 0f,
+            (float) (Math.cos(position * Math.PI / 8)),         (float) Math.sin(position * Math.PI / 8),       -1f,
+            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) Math.sin((position + 1) * Math.PI / 8), -1f,
+            (float) (Math.cos(position * Math.PI / 8)),         (float) (0.39+Math.sin(position * Math.PI / 8)),       0f,
+            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), 0f,
+            (float) (Math.cos(position * Math.PI / 8)),         (float) (0.39+Math.sin(position * Math.PI / 8)),       -1f,
+            (float) (Math.cos((position + 1) * Math.PI / 8)),   (float) (0.39+Math.sin((position + 1) * Math.PI / 8)), -1f,
     };
     private float colors[] = {
             0.0f,  1.0f,  0.0f,  1.0f,
@@ -34,12 +34,12 @@ public class Object_cube1 {
     };
 
     private byte indices[] = {
-            0, 4, 5, 0, 5, 1,
-            1, 5, 6, 1, 6, 2,
-            2, 6, 7, 2, 7, 3,
-            3, 7, 4, 3, 4, 0,
-            4, 7, 6, 4, 6, 5,
-            3, 0, 1, 3, 1, 2
+            0, 1, 2, 1, 2, 3,
+            1, 5, 3, 5, 3, 7,
+            7, 6, 3, 2, 6, 3,
+            2, 6, 4, 2, 4, 0,
+            4, 0, 1, 4, 1, 5,
+            6, 7, 5, 6, 4, 5
     };
 
     public Object_cube1() {
